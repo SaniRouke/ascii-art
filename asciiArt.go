@@ -21,7 +21,7 @@ func GetArt(str, font string) string {
 }
 
 func getFontMap(fileName string) (Font, error) {
-	file, err := os.Open("./" + fileName + ".txt")
+	file, err := os.Open("./fonts/" + fileName + ".txt")
 	if err != nil {
 		return nil, errors.New("Error opening file: " + err.Error())
 	}
