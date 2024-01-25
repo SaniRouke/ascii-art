@@ -46,6 +46,7 @@ func getStyleMap(fileName string) (Style, error) {
 }
 
 func createArt(str string, style Style) string {
+	fmt.Println(str)
 	res := ""
 	lines := strings.Split(str, "\n")
 
