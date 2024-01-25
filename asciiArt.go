@@ -8,45 +8,44 @@ import (
 	"strings"
 )
 
-type Style = map[rune][]string
+type Font = map[rune][]string
 
-func GetArt(str, style string) string {
-	styleMap, err := getStyleMap(style)
+func GetArt(str, font string) string {
+	fontMap, err := getFontMap(font)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	newArt := createArt(str, styleMap)
+	newArt := createArt(str, fontMap)
 	return newArt
 }
 
-func getStyleMap(fileName string) (Style, error) {
-	file, err := os.Open("./" + fileName + ".txt")
+func getFontMap(fileName string) (Font, error) {
+	file, err := os.Open("./fonts/" + fileName + ".txt")
 	if err != nil {
-		return nil, errors.New("Error opening file:" + err.Error())
+		return nil, errors.New("Error opening file: " + err.Error())
 	}
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-	style := Style{}
+	font := Font{}
 
 	for i, j := 0, 31; scanner.Scan(); i++ {
 		if i%9 == 0 {
 			j++
 		}
 		key := rune(j)
-		style[key] = append(style[key], scanner.Text())
+		font[key] = append(font[key], scanner.Text())
 	}
 
 	if err := scanner.Err(); err != nil {
-		return nil, errors.New("Error reading file:" + err.Error())
+		return nil, errors.New("Error reading file: " + err.Error())
 	}
 
-	return style, nil
+	return font, nil
 }
 
-func createArt(str string, style Style) string {
-	fmt.Println(str)
+func createArt(str string, font Font) string {
 	res := ""
 	lines := strings.Split(str, "\n")
 
@@ -57,7 +56,7 @@ func createArt(str string, style Style) string {
 		}
 		for i := 1; i <= 8; i++ {
 			for _, c := range line {
-				res += style[c][i]
+				res += font[c][i]
 			}
 			res += "\n"
 		}
