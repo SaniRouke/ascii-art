@@ -1,4 +1,4 @@
-package main
+package asciiArt
 
 import (
 	"bufio"
@@ -9,17 +9,6 @@ import (
 )
 
 type Style = map[rune][]string
-
-func main() {
-	str := "Hello\n\nThere"
-	if len(str) == 0 {
-		return
-	}
-	style := "standard"
-
-	res := GetArt(str, style)
-	fmt.Print(res)
-}
 
 func GetArt(str, style string) string {
 	styleMap, err := getStyleMap(style)
